@@ -6,7 +6,6 @@ const cors = require('cors')
 
 const { ClienteController } = require('./controllers/clienteController')
 const { CajaController } = require('./controllers/cajaController')
-const { EstadoController } = require('./controllers/estadoController')
 const { PlanController } = require('./controllers/planController')
 const { DetalleController } = require('./controllers/detalleController')
 const { UserController } = require('./controllers/userController')

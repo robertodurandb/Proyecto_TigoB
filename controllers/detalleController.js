@@ -4,7 +4,7 @@ class DetalleController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('select dc.iddetallecontrato, cl.dnicliente, cl.nombrecli, cl.apellidocli, cl.distritocli, cl.direccioncli, cl.telefonocli, date_format(dc.fecha_contrato, "%d-%m-%Y") as fecha_contrato, pl.nombreplan, pl.precioplan, pl.velocidadplan, cj.nombrecaja, cj.localizacion from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes INNER JOIN caja as cj on dc.caja_idcaja=cj.idcaja', (err, rows)=>{
+            conn.query('select dc.num_contrato, cl.dnicliente, cl.nombrecli, cl.apellidocli, cl.distritocli, cl.direccioncli, cl.telefonocli, date_format(dc.fecha_contrato, "%d-%m-%Y") as fecha_contrato, pl.nombreplan, pl.precioplan, pl.velocidadplan, cj.nombrecaja, cj.localizacion from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes INNER JOIN caja as cj on dc.caja_idcaja=cj.idcaja', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
@@ -16,7 +16,7 @@ class DetalleController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('SELECT dc.iddetallecontrato, cl.dnicliente, cl.nombrecli, cl.apellidocli, cl.distritocli, cl.direccioncli, pl.nombreplan, cj.nombrecaja, cj.localizacion from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes INNER JOIN caja as cj on dc.caja_idcaja=cj.idcaja WHERE iddetallecontrato = ?', [req.params.id], (err, rows)=>{
+            conn.query('SELECT dc.num_contrato, cl.dnicliente, cl.nombrecli, cl.apellidocli, cl.distritocli, cl.direccioncli, pl.nombreplan, cj.nombrecaja, cj.localizacion from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes INNER JOIN caja as cj on dc.caja_idcaja=cj.idcaja WHERE iddetallecontrato = ?', [req.params.id], (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
@@ -28,7 +28,7 @@ class DetalleController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('select dc.iddetallecontrato, dc.num_contrato, dc.planes_idplanes, pl.nombreplan, dc.cliente_dnicliente, dc.caja_idcaja, cj.nombrecaja, date_format(dc.fecha_contrato, "%Y-%m-%d") as fecha_contrato, dc.instalacion from detallecontrato as dc INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes INNER JOIN caja as cj on dc.caja_idcaja=cj.idcaja', (err, rows)=>{
+            conn.query('select dc.num_contrato, dc.planes_idplanes, pl.nombreplan, dc.cliente_dnicliente, dc.caja_idcaja, cj.nombrecaja, date_format(dc.fecha_contrato, "%Y-%m-%d") as fecha_contrato, dc.instalacion from detallecontrato as dc INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes INNER JOIN caja as cj on dc.caja_idcaja=cj.idcaja', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
@@ -40,7 +40,7 @@ class DetalleController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('SELECT * FROM detallecontrato WHERE iddetallecontrato = ?', [req.params.id], (err, rows)=>{
+            conn.query('SELECT * FROM detallecontrato WHERE num_contrato = ?', [req.params.id], (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
@@ -62,7 +62,7 @@ class DetalleController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('DELETE FROM detallecontrato WHERE iddetallecontrato = ?', [req.params.id], (err, rows)=>{
+            conn.query('DELETE FROM detallecontrato WHERE num_contrato = ?', [req.params.id], (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.send('detallecontrato delete!')
@@ -73,7 +73,7 @@ class DetalleController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('UPDATE detallecontrato set ? WHERE iddetallecontrato = ?', [req.body, req.params.id], (err, rows)=>{
+            conn.query('UPDATE detallecontrato set ? WHERE num_contrato = ?', [req.body, req.params.id], (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.send('detallecontrato updated!')
