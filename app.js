@@ -10,6 +10,7 @@ const { EstadoController } = require('./controllers/estadoController')
 const { PlanController } = require('./controllers/planController')
 const { DetalleController } = require('./controllers/detalleController')
 const { UserController } = require('./controllers/userController')
+const { PagoController } = require('./controllers/pagoController')
 
 const jwtMiddleware = require('./middlewares/jwt')
 
@@ -48,12 +49,6 @@ app.post('/caja', jwtMiddleware, CajaController.create);
 app.delete('/caja/:id', jwtMiddleware, CajaController.delete);
 app.put('/caja/:id', jwtMiddleware, CajaController.update);
 
-app.get('/estados', EstadoController.list);
-app.get('/estado/:id', EstadoController.retrieve);
-app.post('/estado', jwtMiddleware, EstadoController.create);
-app.delete('/estado/:id', jwtMiddleware, EstadoController.delete);
-app.put('/estado/:id', jwtMiddleware, EstadoController.update);
-
 app.get('/planes', PlanController.list);
 app.get('/plan/:id', PlanController.retrieve);
 app.post('/plan', jwtMiddleware, PlanController.create);
@@ -67,6 +62,12 @@ app.get('/detallecontrato/:id', DetalleController.retrieve);
 app.post('/detallecontrato', jwtMiddleware, DetalleController.create);
 app.delete('/detallecontrato/:id', jwtMiddleware, DetalleController.delete);
 app.put('/detallecontrato/:id', jwtMiddleware, DetalleController.update);
+
+app.get('/pagos', PagoController.list);
+app.get('/pago/:id', PagoController.retrieve);
+app.post('/pago', jwtMiddleware, PagoController.create);
+app.delete('/pago/:id', jwtMiddleware, PagoController.delete);
+app.put('/pago/:id', jwtMiddleware, PagoController.update);
 
 app.get('/usuarios', UserController.list);
 app.get('/usuario/:id', UserController.retrieve);
