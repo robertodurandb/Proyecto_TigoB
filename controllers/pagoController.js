@@ -1,10 +1,22 @@
 class PagoController{
 
+    static todolist (req, res){
+        req.getConnection((err, conn)=>{
+            if(err) return res.send(err)
+    
+            conn.query('SELECT dc.cliente_dnicliente, cl.apellidocli, cl.nombrecli, pg.fechapago, pg.montopago, pg.mespago, pg.anio FROM pago as pg INNER JOIN detallecontrato as dc on dc.num_contrato = pg.num_contrato INNER JOIN cliente as cl on cl.dnicliente = dc.cliente_dnicliente', (err, rows)=>{
+                if(err) return res.send(err)
+    
+                res.json(rows)
+                
+            })
+        })
+    }
     static list (req, res){
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('SELECT * FROM pago', (err, rows)=>{
+            conn.query('SELECT idpago, num_contrato, montopago, date_format(fechapago, "%Y-%m-%d") as fechapago, mespago, anio FROM pago', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
@@ -56,7 +68,5 @@ class PagoController{
             })
         })
     }
-
-
 }
 module.exports = {PagoController}
