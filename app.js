@@ -62,6 +62,7 @@ app.post('/detallecontrato', jwtMiddleware, DetalleController.create);
 app.delete('/detallecontrato/:id', jwtMiddleware, DetalleController.delete);
 app.put('/detallecontrato/:id', jwtMiddleware, DetalleController.update);
 
+app.get('/pagos2', PagoController.todolist);
 app.get('/pagos', PagoController.list);
 app.get('/pago/:id', PagoController.retrieve);
 app.post('/pago', jwtMiddleware, PagoController.create);
