@@ -25,6 +25,11 @@ const dbOptions = {
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE
+    // host: 'localhost',
+    // user: 'tigo_usertigo',
+    // password: '(nacqM8npMp;',
+    // database: 'tigo_tigodb'
+
 }
 //middlewares
 app.use(myconn(mysql, dbOptions, 'single'))
