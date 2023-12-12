@@ -32,8 +32,8 @@ const dbOptions = {
 //     // database: 'tigo_tigodb'
 }
 const pool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true
+    connectionString: process.env.DATABASE_URL
+    //ssl: true
 })
 //middlewares
 // app.use(myconn(mysql, dbOptions, 'single'))
