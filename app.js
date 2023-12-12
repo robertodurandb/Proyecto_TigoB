@@ -3,6 +3,7 @@ const mysql = require('mysql2')
 const myconn = require('express-myconnection')
 const Dotenv = require('dotenv')
 const cors = require('cors')
+const pg = require('pg')
 
 // const { ClienteController } = require('./controllers/clienteController')
 // const { CajaController } = require('./controllers/cajaController')
@@ -19,7 +20,7 @@ const app = express()
 
 app.set('port', process.env.PORT || 9100)
 
-// const dbOptions = {
+const dbOptions = {
 //     host: 'localhost',
 //     port: 3306,
 //     user: process.env.USER,
@@ -29,8 +30,11 @@ app.set('port', process.env.PORT || 9100)
 //     // user: 'tigo_usertigo',
 //     // password: '(nacqM8npMp;',
 //     // database: 'tigo_tigodb'
-
-// }
+}
+const pool = new pg.Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
+})
 //middlewares
 // app.use(myconn(mysql, dbOptions, 'single'))
 app.use(express.json())
@@ -40,6 +44,10 @@ app.use(cors())
 
 app.get('/', (req, res) => {
     res.send('hello world')
+})
+app.get('/ping', async(req, res) => {
+    const result = await pool.query('SELECT NOW()')
+    return res.json(result.rows[0])
 })
 // app.get('/clientes', ClienteController.list);
 // app.get('/cliente/:id', ClienteController.retrieve);
