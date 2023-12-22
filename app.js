@@ -12,6 +12,7 @@ const { UserController } = require('./controllers/userController')
 const { PagoController } = require('./controllers/pagoController')
 
 const jwtMiddleware = require('./middlewares/jwt')
+const jwtOnlyAdmin = require('./middlewares/rolejwt')
 
 Dotenv.config();
 
@@ -47,41 +48,41 @@ app.get('/ping', async(req, res) => {
 })
 app.get('/clientes', ClienteController.list);
 app.get('/cliente/:id', ClienteController.retrieve);
-app.post('/cliente', jwtMiddleware, ClienteController.create);
-app.delete('/cliente/:id', jwtMiddleware, ClienteController.delete);
-app.put('/cliente/:id', jwtMiddleware, ClienteController.update);
+app.post('/cliente', [jwtMiddleware, jwtOnlyAdmin], ClienteController.create);
+app.delete('/cliente/:id', [jwtMiddleware, jwtOnlyAdmin], ClienteController.delete);
+app.put('/cliente/:id', [jwtMiddleware, jwtOnlyAdmin], ClienteController.update);
 
 app.get('/cajas', CajaController.list);
 app.get('/caja/:id', CajaController.retrieve);
-app.post('/caja', jwtMiddleware, CajaController.create);
-app.delete('/caja/:id', jwtMiddleware, CajaController.delete);
-app.put('/caja/:id', jwtMiddleware, CajaController.update);
+app.post('/caja', [jwtMiddleware, jwtOnlyAdmin], CajaController.create);
+app.delete('/caja/:id', [jwtMiddleware, jwtOnlyAdmin], CajaController.delete);
+app.put('/caja/:id', [jwtMiddleware, jwtOnlyAdmin], CajaController.update);
 
 app.get('/planes', PlanController.list);
 app.get('/plan/:id', PlanController.retrieve);
-app.post('/plan', jwtMiddleware, PlanController.create);
-app.delete('/plan/:id', jwtMiddleware, PlanController.delete);
-app.put('/plan/:id', jwtMiddleware, PlanController.update);
+app.post('/plan', [jwtMiddleware, jwtOnlyAdmin], PlanController.create);
+app.delete('/plan/:id', [jwtMiddleware, jwtOnlyAdmin], PlanController.delete);
+app.put('/plan/:id', [jwtMiddleware, jwtOnlyAdmin], PlanController.update);
 
 app.get('/todolist', DetalleController.todolist);
 app.get('/todolist/:id', DetalleController.retrievetodolist);
 app.get('/detallecontratos', DetalleController.list);
 app.get('/detallecontrato/:id', DetalleController.retrieve);
-app.post('/detallecontrato', jwtMiddleware, DetalleController.create);
-app.delete('/detallecontrato/:id', jwtMiddleware, DetalleController.delete);
-app.put('/detallecontrato/:id', jwtMiddleware, DetalleController.update);
+app.post('/detallecontrato', [jwtMiddleware, jwtOnlyAdmin], DetalleController.create);
+app.delete('/detallecontrato/:id', [jwtMiddleware, jwtOnlyAdmin], DetalleController.delete);
+app.put('/detallecontrato/:id', [jwtMiddleware, jwtOnlyAdmin], DetalleController.update);
 
 app.get('/pagos2', PagoController.todolist);
 app.get('/pagos', PagoController.list);
 app.get('/pago/:id', PagoController.retrieve);
-app.post('/pago', jwtMiddleware, PagoController.create);
-app.delete('/pago/:id', jwtMiddleware, PagoController.delete);
-app.put('/pago/:id', jwtMiddleware, PagoController.update);
+app.post('/pago', [jwtMiddleware, jwtOnlyAdmin], PagoController.create);
+app.delete('/pago/:id', [jwtMiddleware, jwtOnlyAdmin], PagoController.delete);
+app.put('/pago/:id', [jwtMiddleware, jwtOnlyAdmin], PagoController.update);
 
 app.get('/usuarios', UserController.list);
 app.get('/usuario/:id', UserController.retrieve);
 app.post('/usuario', UserController.create);
-app.delete('/usuario/:id', jwtMiddleware, UserController.delete);
+app.delete('/usuario/:id', [jwtMiddleware, jwtOnlyAdmin], UserController.delete);
 app.put('/usuario/:id', UserController.update);
 
 app.post('/login', UserController.login);
