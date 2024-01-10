@@ -18,7 +18,7 @@ INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente
 INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes
 INNER JOIN caja as cj on dc.caja_idcaja=cj.idcaja;
 /*********************/
-select dc.num_contrato, dc.cliente_dnicliente, cl.apellidocli, cl.nombrecli, pl.nombreplan, pg.fechapago, pg.montopago, pg.mespago, pg.anio
+select dc.num_contrato, dc.cliente_dnicliente, cl.apellidocli, cl.nombrecli, pl.nombreplan, pl.precioplan, pg.fechapago, pg.montopago, pg.mespago, pg.anio
 from pago as pg
 INNER JOIN detallecontrato as dc on dc.num_contrato = pg.num_contrato
 INNER JOIN cliente as cl on cl.dnicliente = dc.cliente_dnicliente
