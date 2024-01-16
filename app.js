@@ -10,6 +10,7 @@ const { PlanController } = require('./controllers/planController')
 const { DetalleController } = require('./controllers/detalleController')
 const { UserController } = require('./controllers/userController')
 const { PagoController } = require('./controllers/pagoController')
+const { InstalacionController } = require('./controllers/instalacionController')
 
 const jwtMiddleware = require('./middlewares/jwt')
 const jwtOnlyAdmin = require('./middlewares/rolejwt')
@@ -84,6 +85,12 @@ app.get('/usuario/:id', UserController.retrieve);
 app.post('/usuario', UserController.create);
 app.delete('/usuario/:id', [jwtMiddleware, jwtOnlyAdmin], UserController.delete);
 app.put('/usuario/:id', UserController.update);
+
+app.get('/instalaciones', InstalacionController.list);
+app.get('/instalacion/:id', InstalacionController.retrieve);
+app.post('/instalacion', InstalacionController.create);
+app.delete('/instalacion/:id', [jwtMiddleware, jwtOnlyAdmin], InstalacionController.delete);
+app.put('/instalacion/:id', InstalacionController.update);
 
 app.post('/login', UserController.login);
 
