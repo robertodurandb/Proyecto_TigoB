@@ -24,7 +24,7 @@ class UserController {
                         bcrypt.compare(req.body.password, results[0].password, function(err, result){
                         if(result) {
                             let payload = {
-                                id: results[0].iduser,
+                                // id: results[0].dniuser,
                                 username: results[0].dniuser,
                                 role: results[0].perfil_user
                             }
@@ -58,7 +58,6 @@ class UserController {
                 res.json(rows)
             })
         })
-
     }
     static retrieve(req, res) {
         req.getConnection((err, conn) => {
@@ -93,7 +92,7 @@ class UserController {
         req.getConnection((err, conn) => {
             if (err) return res.send(err)
 
-            conn.query('DELETE FROM usuario WHERE iduser = ?', [req.params.id], (err, rows) => {
+            conn.query('DELETE FROM usuario WHERE dniuser = ?', [req.params.id], (err, rows) => {
                 if (err) return res.send(err)
 
                 res.send('user deleted!')
@@ -103,7 +102,7 @@ class UserController {
     static update(req, res) {
         req.getConnection((err, conn) => {
             if (err) return res.send(err)
-                    conn.query('UPDATE usuario set ? WHERE iduser = ?', [req.body, req.params.id], (err, rows) => {
+                    conn.query('UPDATE usuario set ? WHERE dniuser = ?', [req.body, req.params.id], (err, rows) => {
                         if (err) return res.send(err)
                         res.send('user updated!')
                     })     

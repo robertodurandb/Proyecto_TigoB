@@ -13,7 +13,7 @@ function verifyToken(req, res, next){
             res.status(401).send("Token invalido")
         }
 
-        req.userId = decoded.id
+        // req.userId = decoded.id
         req.username = decoded.username
         req.role = decoded.role
 
