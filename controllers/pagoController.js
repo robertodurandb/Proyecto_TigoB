@@ -16,7 +16,7 @@ class PagoController{
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('SELECT idpago, num_contrato, montopago, date_format(fechapago, "%Y-%m-%d") as fechapago, mespago, anio, mediopago, observacionpago FROM pago', (err, rows)=>{
+            conn.query('SELECT idpago, num_contrato, montopago, date_format(fechapago, "%Y-%m-%d") as fechapago, mespago, anio, mediopago, observacion FROM pago', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
