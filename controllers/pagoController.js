@@ -4,7 +4,7 @@ class PagoController{
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('SELECT dc.cliente_dnicliente, dc.num_contrato, cl.apellidocli, cl.nombrecli, pl.nombreplan, pl.precioplan, date_format(pg.fechapago, "%d-%m-%Y") as fechapago, pg.montopago, pg.mediopago, pg.mespago, pg.anio FROM pago as pg INNER JOIN detallecontrato as dc on dc.num_contrato = pg.num_contrato INNER JOIN cliente as cl on cl.dnicliente = dc.cliente_dnicliente INNER JOIN planes as pl on pl.idplanes = dc.planes_idplanes', (err, rows)=>{
+            conn.query('SELECT dc.cliente_dnicliente, dc.num_contrato, cl.apellidocli, cl.nombrecli, pl.nombreplan, pl.precioplan, pg.idpago, date_format(pg.fechapago, "%d-%m-%Y") as fechapago, pg.montopago, pg.mediopago, pg.mespago, pg.anio FROM pago as pg INNER JOIN detallecontrato as dc on dc.num_contrato = pg.num_contrato INNER JOIN cliente as cl on cl.dnicliente = dc.cliente_dnicliente INNER JOIN planes as pl on pl.idplanes = dc.planes_idplanes', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
