@@ -3,6 +3,8 @@ const mysql = require('mysql2')
 const myconn = require('express-myconnection')
 const Dotenv = require('dotenv')
 const cors = require('cors')
+const fs = require('node:fs')
+const https = require('node:https')
 
 const { ClienteController } = require('./controllers/clienteController')
 const { CajaController } = require('./controllers/cajaController')
@@ -94,6 +96,9 @@ app.put('/instalacion/:id', InstalacionController.update);
 
 app.post('/login', UserController.login);
 
-app.listen(app.get('port'), ()=>{
+https.createServer({
+    cert: fs.readFileSync('server.cer'),
+    key: fs.readFileSync('server.key'),
+}, app).listen(app.get('port'), ()=>{
     console.log('server running on port', app.get('port'))
 })
