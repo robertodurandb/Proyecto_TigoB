@@ -43,7 +43,9 @@ app.use(cors())
 //rutas********************************
 
 app.get('/', (req, res) => {
-    res.send('hello world')
+    res.send('<h3>Gracias por Autorizar</h3> <br>'+
+    'Acceder a la siguiente URL: '+
+    '<a href=https://clientes.tigo.com.pe>https://clientes.tigo.com.pe</a>')
 })
 app.get('/ping', async(req, res) => {
     const result = await pool.query('SELECT NOW()')
