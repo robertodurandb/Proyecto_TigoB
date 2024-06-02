@@ -6,10 +6,11 @@ select * from estado;
 select * from planes;
 select * from detallecontrato;
 select * from pago;
-select num_contrato, num_talonario, planes_idplanes, cliente_dnicliente, caja_idcaja, 
+select * from instalacion;
+select * from usuario;
+INSERT INTO instalacion 
+select iddetallecontrato, num_contrato, num_talonario, planes_idplanes, cliente_dnicliente, caja_idcaja, 
 date_format(fecha_contrato, "%d-%m-%Y") as fecha_contrato, dia_pago, estado from detallecontrato;
-
-select num_contrato, montopago, date_format(fechapago, "%d-%m-%Y") as fechapago from pago;
 
 /*Consultas avanzadas*/
 select cl.dnicliente, cl.nombrecli, cl.distritocli, dc.fecha_contrato, dc.dia_pago, pl.descplan, cj.idcaja, cj.localizacion 
@@ -17,12 +18,13 @@ from detallecontrato as dc
 INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente
 INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes
 INNER JOIN caja as cj on dc.caja_idcaja=cj.idcaja;
-/*********************/
-select dc.num_contrato, dc.cliente_dnicliente, cl.apellidocli, cl.nombrecli, pl.nombreplan, pl.precioplan, pg.fechapago, pg.montopago, pg.mespago, pg.anio
-from pago as pg
-INNER JOIN detallecontrato as dc on dc.num_contrato = pg.num_contrato
-INNER JOIN cliente as cl on cl.dnicliente = dc.cliente_dnicliente
-INNER JOIN planes as pl on pl.idplanes = dc.planes_idplanes;
+
+/**********/
+SELECT dc.cliente_dnicliente, cl.apellidocli, cl.nombrecli, pg.fechapago, pg.montopago, pg.mespago, pg.anio 
+	FROM pago as pg INNER JOIN detallecontrato as dc on dc.num_contrato = pg.num_contrato 
+    INNER JOIN cliente as cl on cl.dnicliente = dc.cliente_dnicliente;
+
+
 
 describe cliente;
 describe caja;
@@ -30,47 +32,47 @@ describe detallecontrato;
 describe estado;
 describe planes;
 describe pago;
-describe meses;
-describe usuario;
-describe olt;
-describe splittern1;
-describe splittern2;
+describe instalacion;
 
 ALTER TABLE caja ADD COLUMN detalle VARCHAR(50);
 
-ALTER TABLE detallecontrato ADD COLUMN estado_idestado INT NOT NULL,
-	ADD CONSTRAINT `fk_estado_idestado` FOREIGN KEY (estado_idestado) 
-		REFERENCES estado(idestado);
-ALTER TABLE pago ADD COLUMN num_contrato INT NOT NULL,
-	ADD CONSTRAINT `fk_num_contrato` FOREIGN KEY (num_contrato) 
+ALTER TABLE pago ADD COLUMN detallecontrato_iddetallecontrato INT NOT NULL,
+	ADD CONSTRAINT `fk_detallecontrato_iddetallecontrato` FOREIGN KEY (detallecontrato_iddetallecontrato) 
+		REFERENCES detallecontrato(iddetallecontrato);
+        
+ALTER TABLE pago ADD COLUMN contrato INT NOT NULL,
+	ADD CONSTRAINT `fk_detallecontrato` FOREIGN KEY (contrato) 
 		REFERENCES detallecontrato(num_contrato);
         
-ALTER TABLE splittern2 ADD CONSTRAINT `fk_dependencia_cd` FOREIGN KEY (dependencia_cd) REFERENCES splittern1(id_splittern1);
+ALTER TABLE detallecontrato ADD CONSTRAINT `fk_idinstalacion` FOREIGN KEY (instalacion_idinstalacion) 
+		REFERENCES instalacion(idinstalacion);
         
 DELETE FROM detallecontrato WHERE iddetallecontrato=4;
-DELETE FROM pago WHERE idpago='2';
+DELETE FROM pago WHERE idpago='3';
+DELETE FROM instalacion WHERE idinstalacion=7;
 delete from detallecontrato;
+DELETE FROM cliente;
+DELETE FROM pago;
 
-INSERT INTO pago (num_contrato, montopago, fechapago, mespago,anio) VALUES
-(1225,100,'2023-11-23',11,2023);
+INSERT INTO pago (num_contrato, montopago, fechapago, mespago, anio) VALUES
+(1225,130,"2023-11-23",11,2023);
 
-INSERT INTO meses (idmeses, name_meses) VALUES
-(1,'Enero'),
-(2,'Febrero'),
-(3,'Marzo'),
-(4,'Abril'),
-(5,'Mayo'),
-(6,'Junio'),
-(7,'Julio'),
-(8,'Agosto'),
-(9,'Setiembre'),
-(10,'Octubre'),
-(11,'Noviembre'),
-(12,'Diciembre');
+INSERT INTO instalacion (fechainstalacion, numcontrato, geolocalizacion, observacion) VALUES
+("2024-06-02",1120,"maps","el cliente me invito pan");
 
-INSERT INTO Caja (idcaja, terminal, spliter, detalle) VALUES
-('C0104','01','04','Terminal 01 Spliter 04'),
-('C0105','01','05','Terminal 01 Spliter 05'),
-('C0106','01','06','Terminal 01 Spliter 06'),
-('C0107','01','07','Terminal 01 Spliter 07'),
-('C0108','01','08','Terminal 01 Spliter 08')
+INSERT INTO cliente (dnicliente, apellidocli, nombrecli, direccioncli, distritocli, provinciacli, nacionalidadcli, telefonocli) VALUES
+('44330076','Arevalo Sutta','Andres','SIN DIRECCION','San Juan de Lurigancho','Lima','Peruana',0);
+
+INSERT INTO detallecontrato (num_contrato, planes_idplanes, cliente_dnicliente, caja_idcaja, fecha_contrato, instalacion, diapago, fecha_instalacion) VALUES
+(2168,3,'42399424','c0102','2021-12-29','Completada',1,'2021-12-29'),
+(1499,4,'8695241','c0103','2020-01-10','Completada',1,'2020-01-10'),
+(1600,3,'46976776','c0104','2020-06-06','Completada',1,'2020-06-06'),
+(2084,6,'41163123','c0105','2021-11-26','Completada',1,'2021-11-26'),
+(2177,5,'76542076','c0101','2022-01-08','Completada',1,'2022-01-08'),
+(2194,2,'76560131','c0101','2022-02-02','Completada',1,'2022-02-02'),
+(2076,1,'75606397','c0102','2021-11-22','Completada',1,'2021-11-22');
+
+
+
+
+
