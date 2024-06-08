@@ -3,8 +3,8 @@ const mysql = require('mysql2')
 const myconn = require('express-myconnection')
 const Dotenv = require('dotenv')
 const cors = require('cors')
-const fs = require('node:fs')
-const https = require('node:https')
+//const fs = require('node:fs')
+//const https = require('node:https')
 
 const { ClienteController } = require('./controllers/clienteController')
 const { CajaController } = require('./controllers/cajaController')
@@ -26,13 +26,9 @@ app.set('port', process.env.PORT || 9100)
 const dbOptions = {
     host: 'localhost',
     port: 3306,
-    user: process.env.USER,
     password: process.env.PASSWORD,
+    user: process.env.USER,
     database: process.env.DATABASE
-    // host: 'localhost',
-    // user: 'tigo_usertigo',
-    // password: '(nacqM8npMp;',
-    // database: 'tigo_tigodb'
 }
 
 //middlewares
@@ -98,9 +94,16 @@ app.put('/instalacion/:id', InstalacionController.update);
 
 app.post('/login', UserController.login);
 
-https.createServer({
-    cert: fs.readFileSync('server.cer'),
-    key: fs.readFileSync('server.key'),
-}, app).listen(app.get('port'), ()=>{
+
+//Con Certificado************************
+// https.createServer({
+//     cert: fs.readFileSync('server.cer'),
+//     key: fs.readFileSync('server.key'),
+// }, app).listen(app.get('port'), ()=>{
+//     console.log('server running on port', app.get('port'))
+// })
+
+//Sin Certificado***********************
+ app.listen(app.get('port'), ()=>{
     console.log('server running on port', app.get('port'))
-})
+ })
