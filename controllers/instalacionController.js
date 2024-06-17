@@ -1,4 +1,4 @@
-class InstalacionController {
+export class InstalacionController {
 
     static list (req, res){
         req.getConnection((err, conn)=>{
@@ -57,4 +57,3 @@ class InstalacionController {
         })
     }
 }
-module.exports = {InstalacionController}

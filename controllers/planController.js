@@ -1,4 +1,4 @@
-class PlanController {
+export class PlanController {
     static list (req, res){
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
@@ -56,5 +56,3 @@ class PlanController {
         })
     }
 }
-
-module.exports = {PlanController}

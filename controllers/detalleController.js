@@ -1,4 +1,4 @@
-class DetalleController {
+export class DetalleController {
 
     static todolist (req, res){
         req.getConnection((err, conn)=>{
@@ -81,4 +81,3 @@ class DetalleController {
         })
     }
 }
-module.exports = {DetalleController}

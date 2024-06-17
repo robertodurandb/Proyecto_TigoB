@@ -1,7 +1,10 @@
 const jwt = require("jsonwebtoken")
 const express = require('express')
+// import jwt from 'jsonwebtoken'
+// const {verifyToken} = jwt;
+//const { sign, verify } = jwt;
 
-function verifyToken(req, res, next){
+ function verifyToken(req, res, next){
     const headerAuth = req.headers['authorization']
     if(headerAuth==null){
         res.status(401).send("Token requerido")
@@ -22,4 +25,4 @@ function verifyToken(req, res, next){
 
 }
 
-module.exports = verifyToken
+module.exports = {verifyToken}

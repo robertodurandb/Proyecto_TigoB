@@ -1,4 +1,4 @@
-class PagoController{
+export class PagoController{
 
     static todolist (req, res){
         req.getConnection((err, conn)=>{
@@ -69,4 +69,3 @@ class PagoController{
         })
     }
 }
-module.exports = {PagoController}

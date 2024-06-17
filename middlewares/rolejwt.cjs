@@ -1,5 +1,5 @@
+// import {jwt} from 'jsonwebtoken'
 const jwt = require("jsonwebtoken")
-const express = require('express')
 
 function onlyAdmin(req, res, next){
     if (req.role == "Admin") {
@@ -9,4 +9,4 @@ function onlyAdmin(req, res, next){
     }
 }
 
-module.exports = onlyAdmin
+module.exports = {onlyAdmin}

@@ -1,4 +1,4 @@
-class ClienteController {
+export class ClienteController {
     static list (req, res){
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
@@ -57,5 +57,3 @@ class ClienteController {
     }
 
 }
-
-module.exports = {ClienteController}
