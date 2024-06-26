@@ -4,7 +4,7 @@ export class DetalleController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('select dc.num_contrato, dc.diapago, cl.dnicliente, cl.nombrecli, cl.apellidocli, cl.distritocli, cl.direccioncli, cl.telefonocli, dc.observacion,date_format(dc.fecha_contrato, "%d-%m-%Y") as fecha_contrato, date_format(dc.fecha_instalacion, "%d-%m-%Y") as fecha_instalacion, pl.nombreplan, pl.precioplan, pl.velocidadplan from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes', (err, rows)=>{
+            conn.query('select dc.num_contrato, dc.diapago, dc.observacion, date_format(dc.fecha_contrato, "%d-%m-%Y") as fecha_contrato, date_format(dc.fechaprog_instalacion, "%d-%m-%Y") as fechaprog_instalacion, dc.estadodc_instalacion, cl.dnicliente, cl.nombrecli, cl.apellidocli, cl.distritocli, cl.direccioncli, cl.telefonocli, cl.fecha_nacimiento, pl.nombreplan, pl.precioplan, pl.velocidadplan, date_format(it.fechainstalacion, "%d-%m-%Y") as fechainstalacion, it.geolocalizacion, it.imagencasa, it.user_create, it.estado, it.observacion_instalacion from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes INNER JOIN instalacion as it on dc.instalacion_idinstalacion=it.idinstalacion', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
