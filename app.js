@@ -74,8 +74,9 @@ app.delete('/plan/:id', [verifyToken, onlyAdmin], PlanController.delete);
 app.put('/plan/:id', [verifyToken, onlyAdmin], PlanController.update);
 
 app.get('/todolist', DetalleController.todolist);
+app.get('/list', DetalleController.list);
 app.get('/todolist/:id', DetalleController.retrievetodolist);
-app.get('/detallecontratos', DetalleController.list);
+app.get('/detallecontratos', DetalleController.listcontratos);
 app.get('/detallecontrato/:id', DetalleController.retrieve);
 app.post('/detallecontrato', [verifyToken, onlyAdmin], DetalleController.create);
 app.delete('/detallecontrato/:id', [verifyToken, onlyAdmin], DetalleController.delete);

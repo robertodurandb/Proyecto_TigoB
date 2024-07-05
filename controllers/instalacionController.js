@@ -4,7 +4,7 @@ export class InstalacionController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('SELECT idinstalacion, date_format(fechainstalacion, "%Y-%m-%d") as fechainstalacion, numcontrato, geolocalizacion, observacion, ont, tecnico, user_update FROM instalacion', (err, rows)=>{
+            conn.query('SELECT idinstalacion, date_format(fechainstalacion, "%d-%m-%Y") as fechainstalacion, geolocalizacion, user_create, fecha_create, estado, observacion_instalacion, contratoinstalacion FROM instalacion', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)

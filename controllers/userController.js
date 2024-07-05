@@ -50,6 +50,26 @@ export class UserController {
             })
         })
     }
+
+    // static update_password(req, res) {
+    //     req.getConnection((err, conn) => {
+    //         if (err) return res.send(err)
+    //         let data = req.body;
+
+    //         bcrypt.genSalt(10, (err, salt) => {
+    //             bcrypt.hash(data.password, salt, (err, newPassword) => {
+    //                 data.password = newPassword
+
+    //                 conn.query('UPDATE usuario set WHERE dniuser = ?', [data], (err, rows) => {
+    //                     if (err) return res.send(err)
+
+    //                     res.send('password modificado con exito!')
+    //                 })
+    //             })
+    //         })
+    //     })
+    // }
+
     static update(req, res) {
         req.getConnection((err, conn) => {
             if (err) return res.send(err)

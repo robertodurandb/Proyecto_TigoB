@@ -28,7 +28,19 @@ export class DetalleController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('select dc.num_contrato, dc.diapago, dc.planes_idplanes, pl.nombreplan, dc.cliente_dnicliente, date_format(dc.fecha_contrato, "%Y-%m-%d") as fecha_contrato, date_format(dc.fecha_instalacion, "%Y-%m-%d") as fecha_instalacion, dc.observacion from detallecontrato as dc INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes', (err, rows)=>{
+            conn.query('select dc.num_contrato, dc.diapago, date_format(dc.fecha_contrato, "%d-%m-%y") as fecha_contrato, date_format(dc.fechaprog_instalacion, "%d-%m-%y") as fechaprog_instalacion, dc.observacion, pl.nombreplan, cl.dnicliente, cl.apellidocli, nombrecli, cl.distritocli, cl.direccioncli, cl.telefonocli from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes WHERE dc.estadodc_instalacion="pendiente"', (err, rows)=>{
+                if(err) return res.send(err)
+    
+                res.json(rows)
+                
+            })
+        })
+    }
+    static listcontratos (req, res){
+        req.getConnection((err, conn)=>{
+            if(err) return res.send(err)
+    
+            conn.query('select dc.num_contrato, dc.cliente_dnicliente, dc.estadodc_instalacion, dc.diapago, date_format(dc.fecha_contrato, "%d-%m-%y") as fecha_contrato, date_format(dc.fechaprog_instalacion, "%d-%m-%y") as fechaprog_instalacion, dc.observacion, pl.nombreplan, cl.apellidocli, nombrecli, cl.distritocli, cl.direccioncli, cl.telefonocli from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
