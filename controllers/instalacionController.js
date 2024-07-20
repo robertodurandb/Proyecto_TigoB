@@ -16,7 +16,7 @@ export class InstalacionController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('SELECT * FROM instalacion WHERE idinstalacion = ?', [req.params.id], (err, rows)=>{
+            conn.query('SELECT * FROM instalacion WHERE contratoinstalacion = ?', [req.params.id], (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
@@ -28,9 +28,14 @@ export class InstalacionController {
             if(err) return res.send(err)
     
             conn.query('INSERT INTO instalacion set ?', [req.body], (err, rows)=>{
-                if(err) return res.status(401).send(err)
-    
-                res.status(200).send('instalacion added!')
+                if(err) {
+                    return res.status(401).send(err)
+                }else{
+                    let idinsta = rows.insertId;
+                    res.status(200).send('Instalacion added, '+idinsta)
+                  
+                }
+               
             })
         })
     }
