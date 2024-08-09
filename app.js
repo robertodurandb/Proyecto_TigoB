@@ -1,10 +1,21 @@
 import express from 'express'
-import fs from 'node:fs';
-import https from 'node:https';
 import mysql from 'mysql2'
 import myconn from 'express-myconnection'
 import Dotenv from 'dotenv'
 import cors from 'cors'
+import multer from 'multer'
+
+// Configuración de Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Directorio donde se guardarán las imágenes
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname); // Nombre único para el archivo
+  }
+});
+
+const upload = multer({ storage: storage });
 
 import {ClienteController} from './controllers/clienteController.js'
 import {PlanController} from './controllers/planController.js'
@@ -37,13 +48,6 @@ app.use(myconn(mysql, dbOptions, 'single'))
 app.use(express.json())
 app.use(cors())
 
-// Routes
-// app.get('/mitchell', function(req, res) { 
-//     res.sendFile(path.join(__dirname, './build/index.html'), function(err) { 
-//         if (err) { res.status(500).send(err) } 
-//     })
-//     })
-
 //rutas backend********************************
 
 app.get('/', (req, res) => {
@@ -60,12 +64,6 @@ app.get('/cliente/:id', ClienteController.retrieve);
 app.post('/cliente', [verifyToken, onlyAdmin], ClienteController.create);
 app.delete('/cliente/:id', [verifyToken, onlyAdmin], ClienteController.delete);
 app.put('/cliente/:id', [verifyToken], ClienteController.update);
-
-// app.get('/cajas', CajaController.list);
-// app.get('/caja/:id', CajaController.retrieve);
-// app.post('/caja', [jwtMiddleware, jwtOnlyAdmin], CajaController.create);
-// app.delete('/caja/:id', [jwtMiddleware, jwtOnlyAdmin], CajaController.delete);
-// app.put('/caja/:id', [jwtMiddleware, jwtOnlyAdmin], CajaController.update);
 
 app.get('/planes', PlanController.list);
 app.get('/plan/:id', PlanController.retrieve);
@@ -100,6 +98,13 @@ app.get('/instalacion/:id', InstalacionController.retrieve);
 app.post('/instalacion', [verifyToken],InstalacionController.create);
 app.delete('/instalacion/:id', [verifyToken], InstalacionController.delete);
 app.put('/instalacion/:id', [verifyToken],InstalacionController.update);
+
+// Ruta para subir imágenes
+app.post('/upload', upload.single('image'), (req, res) => {
+    console.log(req.file);
+    res.send('Archivo subido correctamente');
+  });
+
 
 app.post('/login', LoginController.login);
 
