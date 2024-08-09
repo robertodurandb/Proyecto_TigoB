@@ -105,14 +105,14 @@ app.post('/login', LoginController.login);
 
 
 //Con Certificado************************
-https.createServer({
-    cert: fs.readFileSync('server.cer'),
-    key: fs.readFileSync('server.key'),
-}, app).listen(app.get('port'), ()=>{
-    console.log('server running on port', app.get('port'))
-})
+// https.createServer({
+//     cert: fs.readFileSync('server.cer'),
+//     key: fs.readFileSync('server.key'),
+// }, app).listen(app.get('port'), ()=>{
+//     console.log('server running on port', app.get('port'))
+// })
 
 //Sin Certificado***********************
-//  app.listen(app.get('port'), ()=>{
-//     console.log('server running on port', app.get('port'))
-//  })
+ app.listen(app.get('port'), ()=>{
+    console.log('server running on port', app.get('port'))
+ })
