@@ -3,7 +3,7 @@ import mysql from 'mysql2'
 import myconn from 'express-myconnection'
 import Dotenv from 'dotenv'
 import cors from 'cors'
-import multer from 'multer'
+import fs from 'node:fs'
 
 import {ClienteController} from './controllers/clienteController.js';
 import {PlanController} from './controllers/planController.js';
@@ -15,6 +15,8 @@ import {LoginController} from './controllers/loginController.cjs';
 import {verifyToken} from './middlewares/jwt.cjs';
 import {onlyAdmin} from './middlewares/rolejwt.cjs';
 import {newupload, uploadfile} from './controllers/imageController.js';
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 Dotenv.config();
 
@@ -36,17 +38,6 @@ const dbOptions = {
 app.use(myconn(mysql, dbOptions, 'single'))
 app.use(express.json())
 app.use(cors())
-
-// Configuración de Multer
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, 'uploads/'); // Directorio donde se guardarán las imágenes
-//     },
-//     filename: (req, file, cb) => {
-//       cb(null, Date.now() + '-' + file.originalname); // Nombre único para el archivo
-//     }
-//   });
-//   const upload = multer({ storage: storage });
 
 //rutas backend********************************
 
@@ -99,6 +90,9 @@ app.post('/instalacion', [verifyToken],InstalacionController.create);
 app.delete('/instalacion/:id', [verifyToken], InstalacionController.delete);
 app.put('/instalacion/:id', [verifyToken],InstalacionController.update);
 
+app.get('/imagen/img', (req, res) => {
+    
+})
 
 app.post('/imagen', newupload, uploadfile)
 // Ruta para subir imágenes
