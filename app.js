@@ -62,14 +62,13 @@ app.post('/plan', [verifyToken, onlyAdmin], PlanController.create);
 app.delete('/plan/:id', [verifyToken, onlyAdmin], PlanController.delete);
 app.put('/plan/:id', [verifyToken, onlyAdmin], PlanController.update);
 
-app.get('/todolist', DetalleController.todolist);
-app.get('/list', DetalleController.list);
-app.get('/todolist/:id', DetalleController.retrievetodolist);
-app.get('/detallecontratos', DetalleController.listcontratos);
-app.get('/detallecontrato/:id', DetalleController.retrieve);
+app.get('/todoinstacli', DetalleController.todoinstacli);
+app.get('/pendinstacli', DetalleController.pendinstacli);
+app.get('/todocontratosactiv', DetalleController.todocontratosactiv);
+app.get('/todocontratosactiv/:id', DetalleController.retrieve);
 app.post('/detallecontrato', [verifyToken, onlyAdmin], DetalleController.create);
-app.delete('/detallecontrato/:id', [verifyToken, onlyAdmin], DetalleController.delete);
-app.put('/detallecontrato/:id', [verifyToken], DetalleController.update);
+//app.delete('/detallecontrato/:id', [verifyToken, onlyAdmin], DetalleController.delete);
+app.put('/todocontratosactiv/:id', [verifyToken], DetalleController.update);
 
 app.get('/pagos2', PagoController.todolist);
 app.get('/pagos', PagoController.list);
@@ -93,14 +92,7 @@ app.put('/instalacion/:id', [verifyToken],InstalacionController.update);
 app.get('/imagen/img', (req, res) => {
     
 })
-
 app.post('/imagen', newupload, uploadfile)
-// Ruta para subir imágenes
-// app.post('/imagen', upload.single('image'), (req, res) => {
-//     console.log(req.file);
-//     res.send('Archivo subido correctamente');
-//   });
-
 
 app.post('/login', LoginController.login);
 

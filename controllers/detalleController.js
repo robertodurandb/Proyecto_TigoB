@@ -1,6 +1,6 @@
 export class DetalleController {
-
-    static todolist (req, res){
+    //******* TODOS LOS CLIENTES CON CONTRATO Y CON INSTALACIÓN */
+    static todoinstacli (req, res){
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
@@ -12,23 +12,13 @@ export class DetalleController {
             })
         })
     }
-    static retrievetodolist (req, res){
+    
+    //*************** TODOS LOS CLIENTES CON PRE-CONTRATO, CON INSTALACION PENDIENTE */
+    static pendinstacli (req, res){
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('SELECT dc.num_contrato, dc.diapago, cl.dnicliente, cl.nombrecli, cl.apellidocli, cl.distritocli, cl.direccioncli, pl.nombreplan from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes WHERE iddetallecontrato = ?', [req.params.id], (err, rows)=>{
-                if(err) return res.send(err)
-    
-                res.json(rows)
-            })
-        })
-    }
-
-    static list (req, res){
-        req.getConnection((err, conn)=>{
-            if(err) return res.send(err)
-    
-            conn.query('select dc.num_contrato, dc.diapago, date_format(dc.fecha_contrato, "%d-%m-%y") as fecha_contrato, date_format(dc.fechaprog_instalacion, "%d-%m-%y") as fechaprog_instalacion, dc.observacion, pl.nombreplan, cl.dnicliente, cl.apellidocli, nombrecli, cl.distritocli, cl.direccioncli, cl.telefonocli from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes WHERE dc.estadodc_instalacion="pendiente"', (err, rows)=>{
+            conn.query('select dc.num_contrato, dc.diapago, date_format(dc.fecha_contrato, "%d-%m-%Y") as fecha_contrato, date_format(dc.fechaprog_instalacion, "%d-%m-%Y") as fechaprog_instalacion, dc.observacion, pl.nombreplan, cl.dnicliente, cl.apellidocli, nombrecli, cl.distritocli, cl.direccioncli, cl.telefonocli from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes WHERE dc.estadodc_instalacion="pendiente"', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
@@ -36,11 +26,12 @@ export class DetalleController {
             })
         })
     }
-    static listcontratos (req, res){
+    //*************** TODOS LOS CONTRATOS, CON INSTALACION PENDIENTE E INSTALADOS */
+    static todocontratosactiv (req, res){
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('select dc.num_contrato, dc.cliente_dnicliente, dc.estadodc_instalacion, dc.diapago, date_format(dc.fecha_contrato, "%d-%m-%y") as fecha_contrato, date_format(dc.fechaprog_instalacion, "%d-%m-%y") as fechaprog_instalacion, dc.observacion, pl.nombreplan, cl.apellidocli, nombrecli, cl.distritocli, cl.direccioncli, cl.telefonocli from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes', (err, rows)=>{
+            conn.query('select dc.num_contrato, dc.cliente_dnicliente, dc.estadodc_instalacion, dc.diapago, date_format(dc.fecha_contrato, "%d-%m-%Y") as fecha_contrato, date_format(dc.fechaprog_instalacion, "%d-%m-%Y") as fechaprog_instalacion, dc.observacion, pl.nombreplan, cl.apellidocli, nombrecli, cl.distritocli, cl.direccioncli, cl.telefonocli from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes', (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
@@ -52,13 +43,24 @@ export class DetalleController {
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
     
-            conn.query('SELECT * FROM detallecontrato WHERE num_contrato = ?', [req.params.id], (err, rows)=>{
+            conn.query('SELECT dc.num_contrato, dc.diapago, cl.dnicliente, cl.nombrecli, cl.apellidocli, cl.distritocli, cl.direccioncli, pl.nombreplan from detallecontrato as dc INNER JOIN cliente as cl on dc.cliente_dnicliente=cl.dnicliente INNER JOIN planes as pl on dc.planes_idplanes=pl.idplanes WHERE iddetallecontrato = ?', [req.params.id], (err, rows)=>{
                 if(err) return res.send(err)
     
                 res.json(rows)
             })
         })
     }
+    // static retrieve (req, res){
+    //     req.getConnection((err, conn)=>{
+    //         if(err) return res.send(err)
+    
+    //         conn.query('SELECT * FROM detallecontrato WHERE num_contrato = ?', [req.params.id], (err, rows)=>{
+    //             if(err) return res.send(err)
+    
+    //             res.json(rows)
+    //         })
+    //     })
+    // }
     static create (req, res){
         req.getConnection((err, conn)=>{
             if(err) return res.send(err)
