@@ -37,6 +37,7 @@ const dbOptions = {
 //middlewares
 app.use(myconn(mysql, dbOptions, 'single'))
 app.use(express.json())
+app.use(express.static('uploads'));
 app.use(cors())
 
 //rutas backend********************************
@@ -89,9 +90,10 @@ app.post('/instalacion', [verifyToken],InstalacionController.create);
 app.delete('/instalacion/:id', [verifyToken], InstalacionController.delete);
 app.put('/instalacion/:id', [verifyToken],InstalacionController.update);
 
-app.get('/imagen/img', (req, res) => {
-    
-})
+app.get('/:img', function(req, res){
+    res.sendFile( `uploads/${img}` );
+});
+
 app.post('/imagen', newupload, uploadfile)
 
 app.post('/login', LoginController.login);
