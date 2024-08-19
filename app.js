@@ -68,7 +68,7 @@ app.get('/todocontratosactiv', DetalleController.todocontratosactiv);
 app.get('/todocontratosactiv/:id', DetalleController.retrieve);
 app.post('/detallecontrato', [verifyToken, onlyAdmin], DetalleController.create);
 //app.delete('/detallecontrato/:id', [verifyToken, onlyAdmin], DetalleController.delete);
-app.put('/todocontratosactiv/:id', [verifyToken], DetalleController.update);
+app.put('/pendinstacli/:id', [verifyToken], DetalleController.update);
 
 app.get('/pagos2', PagoController.todolist);
 app.get('/pagos', PagoController.list);
