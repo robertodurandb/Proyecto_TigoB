@@ -21,10 +21,10 @@ req.getConnection((err, conn)=>{
    if(err) return res.send(err)
 
        const tipo = req.file.mimetype
-       const nombre = Date.now() + '-' + req.file.originalname
+       const nombreimg = Date.now() + '-' + req.file.originalname
 
        conn.query('INSERT INTO imagen set ?', 
-         [{tipo, nombre}], (err, rows)=>{
+         [{tipo, nombreimg}], (err, rows)=>{
            if(err) {
                return res.status(401).send(err)
            }else{
