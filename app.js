@@ -3,7 +3,6 @@ import mysql from 'mysql2'
 import myconn from 'express-myconnection'
 import Dotenv from 'dotenv'
 import cors from 'cors'
-import fs from 'node:fs'
 
 import {ClienteController} from './controllers/clienteController.js';
 import {PlanController} from './controllers/planController.js';
@@ -15,8 +14,6 @@ import {LoginController} from './controllers/loginController.cjs';
 import {verifyToken} from './middlewares/jwt.cjs';
 import {onlyAdmin} from './middlewares/rolejwt.cjs';
 import {newupload, uploadfile} from './controllers/imageController.js';
-import path from 'node:path'
-import { pathToFileURL } from 'node:url'
 
 Dotenv.config();
 
