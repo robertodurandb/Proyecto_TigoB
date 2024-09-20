@@ -13,7 +13,7 @@ import {InstalacionController} from './controllers/instalacionController.js';
 import {LoginController} from './controllers/loginController.cjs';
 import {verifyToken} from './middlewares/jwt.cjs';
 import {onlyAdmin} from './middlewares/rolejwt.cjs';
-import {newupload, uploadfile} from './controllers/imageController.js';
+import {newupload, updatefile, uploadfile} from './controllers/imageController.js';
 
 Dotenv.config();
 
@@ -90,8 +90,8 @@ app.put('/instalacion/:id', [verifyToken],InstalacionController.update);
 app.get('/:img', function(req, res){
     res.sendFile( `uploads/${img}` );
 });
-
 app.post('/imagen', newupload, uploadfile)
+app.put('/imagen/:id', newupload, updatefile)
 
 app.post('/login', LoginController.login);
 
