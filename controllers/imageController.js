@@ -25,34 +25,34 @@ req.getConnection((err, conn)=>{
                return res.status(401).send(err)
            }else{
                let idimag = rows.insertId;
-               res.status(200).send('Imagen added, '+idimag)  
+               res.status(200).send('Imagen added, '+idimag)
               console.log(req.file.filename)
            }
        })
 })
 }
 
-const updatefile = (req, res) => {
-  req.getConnection((err, conn)=>{
-     if(err) return res.send(err)
-         const tipo = req.file.mimetype
-         const nombreimg = req.file.filename
+// const updatefile = (req, res) => {
+//   req.getConnection((err, conn)=>{
+//      if(err) return res.send(err)
+//          const tipo = req.file.mimetype
+//          const nombreimg = req.file.filename
   
-         conn.query('UPDADTE imagen set ? WHERE idimagen = ?', 
-           [{tipo, nombreimg}], (err, rows)=>{
-             if(err) {
-                 return res.status(401).send(err)
-             }else{
-                 let idimag = rows.insertId;
-                 res.status(200).send('Imagen update, '+idimag)  
-                console.log(req.file.filename)
-             }
-         })
-  })
-  }
+//          conn.query('UPDADTE imagen set ? WHERE idimagen = ?', 
+//            [{tipo, nombreimg}], (err, rows)=>{
+//              if(err) {
+//                  return res.status(401).send(err)
+//              }else{
+//                  let idimag = rows.insertId;
+//                  res.status(200).send('Imagen update, '+idimag)  
+//                 console.log(req.file.filename)
+//              }
+//          })
+//   })
+//   }
   
 
-export {newupload, uploadfile, updatefile}
+export {newupload, uploadfile}
 
     
 
